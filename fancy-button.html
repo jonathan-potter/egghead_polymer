@@ -1,0 +1,22 @@
+<dom-module id="fancy-button">
+  <template>
+    <content></content>
+  </template>
+  <style>
+    :host {
+      color: red;
+    }
+  </style>
+  <script>
+    Polymer({
+      is: 'fancy-button',
+      extends: 'button',
+      created() {
+        this.addEventListener('click', this.clickHandler)
+      },
+      clickHandler() {
+        this.textContent = this.textContent.split('').reverse().join('')
+      }
+    })
+  </script>
+</dom-module>
