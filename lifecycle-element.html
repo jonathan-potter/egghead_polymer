@@ -1,0 +1,42 @@
+<dom-module id="lifecycle-element">
+  <template>
+    <button id="btn">Hello World</button>
+  </template>
+  <script>
+    Polymer({
+      is: 'lifecycle-element',
+      created () {
+        this.log('created')
+        this.addEventListener('click', () => {
+          this.remove()
+        })
+      },
+      ready () {
+        this.log('ready')
+
+        this.ticker = setInterval(this.tick.bind(this), 500)
+      },
+      attached () {
+        this.log('attached')
+      },
+      detached () {
+        this.log('detached')
+        clearInterval(this.ticker)
+      },
+      attributeChanged (name, oldValue, newValue) {
+        console.log('%s was changed to %s from %s', name, newValue, oldValue)
+      },
+      tick () {
+        this.setAttribute('data-id', Math.random())
+      },
+      updateAttribute(cycle) {
+        this.setAttribute('class', cycle)
+      },
+      log (cycle) {
+        console.log('*****' + cycle)
+        this.$ && console.dir(this.$.btn)
+        this.updateAttribute(cycle)
+      }
+    })
+  </script>
+</dom-module>
